@@ -16,7 +16,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cypress:open": "npx cypress open"
+    "cypress:open": "npx cypress open",
+    "cypress:run": "npx cypress run",
+    "cypress:run-chrome": "cypress run --browser chrome"
   },
   "devDependencies": {
     "cypress": "^15.3.0"
