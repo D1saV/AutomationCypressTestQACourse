@@ -1,0 +1,24 @@
+{
+  "name": "automationcypresstestqacourse",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/D1saV/AutomationCypressTestQACourse#readme",
+  "bugs": {
+    "url": "https://github.com/D1saV/AutomationCypressTestQACourse/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D1saV/AutomationCypressTestQACourse.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "npx cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^15.3.0"
+  }
+}
