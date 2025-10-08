@@ -1,19 +1,37 @@
-describe('example to-do app', () => {
+describe('HomeWork19', () => {
   beforeEach(() => {
     
     cy.visit('https://guest:welcome2qauto@qauto.forstudy.space/')
   })
-  it('displays two todo items by default', () => {
-    // We use the `cy.get()` command to get all elements that match the selector.
-    // Then, we use `should` to assert that there are two matched items,
-    // which are the two default items.
-    cy.get('.todo-list li').should('have.length', 2)
+  it('Find the header elements', () => {
+    cy.get('.header_logo')
+    cy.get('[class="btn header-link -active"]').contains('Home')
+    cy.get('[class="btn header-link"]').contains('About')
+    cy.get('[class="btn header-link"]').contains('Contacts')
+    cy.get('[class="header-link -guest"]').contains('Guest log in')
+    cy.get('[class="btn btn-outline-white header_signin"]').contains('Sign In')
+  })
 
-    // We can go even further and check that the default todos each contain
-    // the correct text. We use the `first` and `last` functions
-    // to get just the first and last matched elements individually,
-    // and then perform an assertion with `should`.
-    cy.get('.todo-list li').first().should('have.text', 'Pay electric bill')
-    cy.get('.todo-list li').last().should('have.text', 'Walk the dog')
+  it('Find the contacts section elements', () => {
+   // social-media find by icon
+cy.get('.icon-facebook').parent()
+cy.get('.icon-telegram').parent()
+cy.get('.icon-youtube').parent()
+cy.get('.icon-instagram').parent()
+cy.get('.icon-linkedin').parent()
+    //social-media find by link
+cy.get('a[href*="facebook.com"]')
+cy.get('a[href*="t.me"]')
+cy.get('a[href*="youtube.com"]')
+cy.get('a[href*="instagram.com"]')
+cy.get('a[href*="linkedin.com"]')
+
+    //hillel links on web by class
+cy.get('[class="contacts_link display-4"]').contains('ithillel.ua')
+cy.get('[class="contacts_link h4"]').contains('support@ithillel.ua')
+    //hillel links on web by link
+cy.get('a[href*="ithillel.ua"]').contains('ithillel.ua')
+cy.get('a[href*="mailto:developer@ithillel.ua"]').contains('support@ithillel.ua')
   })
 })
+
