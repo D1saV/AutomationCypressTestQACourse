@@ -13,6 +13,11 @@ export default defineConfig({
     "modifyObstructiveCode": false,
     setupNodeEvents(on, config) {
       // implement node event listeners here
+      
+    },
+    env: {
+      TEST_EMAIL: 'deonisiyqa2406@gmail.com',
+      TEST_EMAIL_PREFIX: 'DenisQA'
     },
   },
 });
