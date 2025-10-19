@@ -2,7 +2,7 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
-    baseUrl: "https://qauto2.forstudy.space/",
+    baseUrl: 'https://guest:welcome2qauto@qauto2.forstudy.space/',
     defaultCommandTimeout: 5000,
     fixturesFolder: "cypress/fixtures",
     specPattern: "**/*.cy.{js,jsx,ts,tsx}",
