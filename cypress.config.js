@@ -1,18 +1,21 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
+  reporter: "mochawesome",
+  reporterOptions: {
+    reportDir: "cypress/reports/mochawesome",
+    overwrite: false,
+    html: true,
+    json: true,
+    embeddedScreenshots: true,
+    inlineAssets: true,
+  },
   e2e: {
-    "baseUrl": "https://example.com",
-    "defaultCommandTimeout": 5000,
-    "fixturesFolder": "cypress/fixtures",
-    "specPattern": "**/*.cy.{js,jsx,ts,tsx}",
-    "viewportWidth": 1280,
-    "viewportHeight": 720,
-    "screenshotsFolder": "cypress/screenshots",
-    "videosFolder": "cypress/videos",
-    "modifyObstructiveCode": false,
+    baseUrl: "https://example.com",
+    defaultCommandTimeout: 5000,
+    viewportWidth: 1280,
+    viewportHeight: 720,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
       
     },
     env: {
