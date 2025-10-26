@@ -119,6 +119,10 @@ export class GaragePage {
     return cy.get('.icon-calendar');
   }
 
+  interceptCarCreation() {
+    return cy.intercept('POST', '/api/cars').as('createCar');
+  }
+
   openAddCarModal() {
     this.getAddCarButton().click();
     this.getModalContent().should('be.visible');
@@ -150,14 +154,26 @@ export class GaragePage {
   }
 
   addCar(brand, model, mileage) {
+    this.interceptCarCreation();
+    
     this.openAddCarModal();
     this.selectBrand(brand);
     this.selectModel(model);
     this.enterMileage(mileage);
     this.getAddButton().should('not.be.disabled').click();
-    cy.contains('.car-item', brand, { timeout: 10000 }).should('exist');
-    cy.contains('.car-item', model).should('exist');
-    return this;
+    
+    return cy.wait('@createCar').then((interception) => {
+      expect(interception.response.statusCode).to.eq(201);
+      
+      const carId = interception.response.body.data.id;
+      
+      cy.writeFile('cypress/fixtures/carId.json', { id: carId });
+
+      cy.contains('.car-item', brand, { timeout: 10000 }).should('exist');
+      cy.contains('.car-item', model).should('exist');
+      
+      return cy.wrap(carId);
+    });
   }
 
   selectBrand(brand) {
@@ -228,17 +244,18 @@ export class GaragePage {
   removeCar() {
     this.openEditModal();
     this.getRemoveCarButton().click();
-    cy.contains('button', 'Remove').click();
-    cy.get('body').then(($body) => {
-      if ($body.find('.car-item').length > 0) {
-        cy.get('.car-item')
-          .filter((_, el) => {
-            const text = Cypress.$(el).text();
-            return text.includes('BMW') && text.includes('X5') && text.includes('26300');
-          })
-          .should('not.exist');
-      } else {
+    
+    cy.contains('button', 'Remove', { timeout: 5000 })
+      .should('be.visible')
+      .click();
+    
+    this.getModalContent().should('not.exist');
+    
+    cy.get('.car-list').then(($carList) => {
+      if ($carList.find('.car-item').length === 0) {
         cy.get('.car-item').should('not.exist');
+      } else {
+        cy.contains('.car-item', 'Ford Focus').should('not.exist');
       }
     });
     return this;
