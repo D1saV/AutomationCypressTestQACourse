@@ -24,3 +24,28 @@ Cypress.Commands.overwrite('type', (originalFn, element, text, options) => {
 //   cy.wait(3000)
 // })
 
+Cypress.Commands.add('createExpenseViaApi', (carId, expenseData) => {
+    const currentDate = new Date().toISOString().split('T')[0];
+    
+    const defaultExpenseData = {
+        carId: carId,
+        reportedAt: currentDate,
+        mileage: 1000,
+        liters: 50,
+        totalCost: 100,
+        forceMileage: false
+    };
+
+    const finalExpenseData = { ...defaultExpenseData, ...expenseData };
+
+    return cy.request({
+        method: 'POST',
+        url: '/api/expenses',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: finalExpenseData
+    });
+});
+
