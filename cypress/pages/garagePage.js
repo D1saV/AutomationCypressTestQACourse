@@ -71,12 +71,9 @@ export class GaragePage {
     return cy.get('.car-item .car_edit').first();
   }
 
-//   getAddFuelExpenseButton() {
-//     return cy.get('.car-item').contains('button', 'Add fuel expense').first();
-//   }
-    getAddFuelExpenseButton() {
+  getAddFuelExpenseButton() {
     return cy.contains('button', 'Add fuel expense').first();
-    }
+  }
 
   getUpdateMileageForm() {
     return cy.get('form.update-mileage-form').first();
